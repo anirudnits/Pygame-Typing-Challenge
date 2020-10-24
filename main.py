@@ -177,6 +177,8 @@ def main():
         if rem_time <= 0:
             time_over = True
             omnious_sound.stop()
+            lose_sound = pygame.mixer.Sound('lose_sound.wav')
+            lose_sound.play()
 
         elif rem_time < 10 * 1000:
             omnious_sound.play()
@@ -235,6 +237,9 @@ def main():
             score += 1
 
         win = score == len(word_list)
+        if win:  # this sound effect will only play once
+            win_sound = pygame.mixer.Sound('ta_da.wav')
+            win_sound.play()
 
         draw_headers()
         draw_words(word_list, word_clear)
