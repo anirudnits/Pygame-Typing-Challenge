@@ -23,6 +23,13 @@ def main():
     icon = pygame.image.load("images/profanity.png")
     pygame.display.set_icon(icon)
 
+    # Backgroud music
+    pygame.mixer.music.load("background_music.wav")
+    pygame.mixer.music.play(-1)
+
+    # tick tock timer sound
+    omnious_sound = pygame.mixer.Sound("tick_tock.wav")
+
     # Create TextInput-object
     textinput = pygame_textinput.TextInput()
     text_input_x = 7
@@ -169,6 +176,10 @@ def main():
 
         if rem_time <= 0:
             time_over = True
+            omnious_sound.stop()
+
+        elif rem_time < 10 * 1000:
+            omnious_sound.play()
 
         events = pygame.event.get()
 
@@ -223,7 +234,7 @@ def main():
             textinput.clear_text()
             score += 1
 
-        win = (score == len(word_list))
+        win = score == len(word_list)
 
         draw_headers()
         draw_words(word_list, word_clear)
